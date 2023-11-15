@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerisayım Sayacı</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #countdown {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        #startBtn, #stopBtn {
+            font-size: 1em;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id="countdown">5:00</div>
+<button id="startBtn" onclick="startCountdown()">Başlat</button>
+<button id="stopBtn" onclick="stopCountdown()">Durdur</button>
+
+<script>
+    let countdown;
+    let secondsRemaining = 300; // 5 dakika
+
+    function startCountdown() {
+        countdown = setInterval(updateCountdown, 1000);
+        document.getElementById('startBtn').disabled = true;
+        document.getElementById('stopBtn').disabled = false;
+    }
+
+    function stopCountdown() {
+        clearInterval(countdown);
+        document.getElementById('startBtn').disabled = false;
+        document.getElementById('stopBtn').disabled = true;
+    }
+
+    function updateCountdown() {
+        const minutes = Math.floor(secondsRemaining / 60);
+        const seconds = secondsRemaining % 60;
+        document.getElementById('countdown').innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+        if (secondsRemaining === 0) {
+            clearInterval(countdown);
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('stopBtn').disabled = true;
+        } else {
+            secondsRemaining--;
+        }
+    }
+</script>
+
+</body>
+</html>
